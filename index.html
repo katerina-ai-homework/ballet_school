@@ -302,6 +302,77 @@
             min-height: 3em;
         }
 
+        /* --- СПЕЦИАЛЬНЫЕ КАРТОЧКИ ДЕТСКИЕ/ВЗРОСЛЫЕ --- */
+        .about-special-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .about-grid-special {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .about-item-special {
+            background: linear-gradient(135deg, #f9e6e8, #f5d9db);
+            padding: 40px 30px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(216, 166, 169, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-item-special::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .about-item-special:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(216, 166, 169, 0.3);
+        }
+        
+        .about-icon-special {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .about-item-special h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .about-item-special h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
         /* --- АБОНЕМЕНТЫ --- */
         .subscriptions-grid {
             display: grid;
@@ -649,6 +720,42 @@
             color: var(--primary-color);
         }
 
+        /* --- КНОПКА "НАВЕРХ" --- */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(216, 166, 169, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scroll-to-top:hover {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(216, 166, 169, 0.6);
+        }
+
         /* --- ФУТЕР --- */
         footer {
             background-color: #3e3431;
@@ -799,6 +906,11 @@
             .teachers-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .about-grid-special {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -854,6 +966,14 @@
             .cta-banner h2 {
                 font-size: 1.8rem;
             }
+            
+            .scroll-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -879,6 +999,10 @@
             
             section {
                 padding: 60px 0;
+            }
+            
+            .about-item-special {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -961,16 +1085,21 @@
                     <h3>Любой уровень</h3>
                     <p>Программы подходят как для начинающих, так и для искушенных танцовщикам на групповых и индивидуальных занятиях.</p>
                 </div>
-                <!-- Дополнительные карточки -->
-                <div class="about-item">
-                    <i class="fas fa-child about-icon"></i>
-                    <h3>Детские группы (3-6, 7-12 лет)</h3>
-                    <p>Раннее эстетическое развитие, ритмика и основы классического танца в игровой форме.</p>
-                </div>
-                <div class="about-item">
-                    <i class="fas fa-user-friends about-icon"></i>
-                    <h3>Взрослые (18+)</h3>
-                    <p>Для начинающих и продолжающих. Боди-балет, классика, стретчинг. Занятия для души и тела.</p>
+            </div>
+            
+            <!-- Отдельная сетка для специальных карточек (детские/взрослые группы) -->
+            <div class="about-special-container">
+                <div class="about-grid-special">
+                    <div class="about-item-special">
+                        <i class="fas fa-child about-icon-special"></i>
+                        <h3>Детские группы (3-6, 7-12 лет)</h3>
+                        <p>Раннее эстетическое развитие, ритмика и основы классического танца в игровой форме. Помогаем развить координацию, гибкость и любовь к искусству.</p>
+                    </div>
+                    <div class="about-item-special">
+                        <i class="fas fa-user-friends about-icon-special"></i>
+                        <h3>Взрослые (18+)</h3>
+                        <p>Для начинающих и продолжающих. Боди-балет, классика, стретчинг. Занятия для души и тела. Идеально для снятия стресса и поддержания формы.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1267,6 +1396,11 @@
         </div>
     </footer>
 
+    <!-- Кнопка "Наверх" -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
     <!-- Modal Form -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
@@ -1491,6 +1625,26 @@
                         // Логика для мобильного меню
                     }
                 }
+            });
+        });
+
+        // ========== КНОПКА "НАВЕРХ" ==========
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        
+        // Показать/скрыть кнопку при скролле
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        // Обработчик клика по кнопке "Наверх"
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
 
