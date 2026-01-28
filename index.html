@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Студия балета "Будущая прима" | Классический балет в Санкт-Петербурге</title>
+    <!-- Фавикон -->
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/ballet.png">
+    <!-- Подключение шрифтов -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Иконки FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #d8a6a9; /* Пыльная роза */
+            --secondary-color: #f7e7e6; /* Светло-бежевый фон */
+            --accent-color: #c9a690; /* Теплый беж/золото */
+            --text-color: #5a4a42; /* Темно-коричневый для текста */
+            --white: #ffffff;
+            --hover-shadow: 0 10px 20px rgba(216, 166, 169, 0.3);
+            --border-radius: 15px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 70px; /* Для фиксированной навигации */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        /* --- HEADER --- */
+        .top-header {
+            background-color: var(--white);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .slogan {
+            font-style: italic;
+            color: var(--accent-color);
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .header-contacts {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-align: right;
+        }
+
+        .phone-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phone {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .address-small {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        /* --- НАВИГАЦИЯ (ИЗМЕНЕНО: фиксированная с эффектом стекла) --- */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* --- ГЛАВНЫЙ СЛАЙДЕР --- */
+        .hero-slider {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: scale(1);
+            transition: opacity 1s ease-in-out, transform 4s linear;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1.05);
+            z-index: 2;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 3;
+        }
+
+        /* Индикаторы слайдера */
+        .slider-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background-color: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        /* Специальные стили для баннеров */
+        .slide-banner2 {
+            background-position: center 70% !important;
+        }
+
+        .slide-banner3 {
+            background-position: center 5% !important;
+        }
+
+        /* --- ОБЩИЕ СТИЛИ СЕКЦИЙ --- */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 15px auto 0;
+        }
+
+        /* --- О НАС --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .about-item {
+            background: var(--white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .about-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .about-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .about-item h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            min-height: 3em;
+        }
+
+        /* --- АБОНЕМЕНТЫ --- */
+        .subscriptions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .sub-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sub-card:hover {
+            transform: scale(1.02);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .sub-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .sub-card:hover .sub-img {
+            transform: scale(1.1);
+        }
+
+        .sub-content {
+            padding: 25px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            background: var(--white);
+            z-index: 1;
+        }
+
+        .sub-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .sub-desc {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            color: #666;
+            min-height: 4em;
+        }
+
+        /* Блок цены (НОВОЕ) */
+        .sub-price {
+            margin: 15px 0;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        
+        .price-amount {
+            font-size: 1.5rem;
+        }
+        
+        .price-period {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        /* --- РАСПИСАНИЕ (НОВАЯ СЕКЦИЯ) --- */
+        .schedule-section {
+            background-color: var(--secondary-color);
+        }
+
+        .schedule-table-container {
+            overflow-x: auto;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            min-width: 700px;
+        }
+        
+        .schedule-table th, .schedule-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .schedule-table th {
+            background-color: var(--primary-color);
+            color: var(--white);
+            font-weight: 600;
+        }
+        
+        .schedule-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .schedule-note {
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+            color: #777;
+        }
+
+        /* --- ПРЕПОДАВАТЕЛИ --- */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .teacher-card {
+            text-align: center;
+            background: var(--white);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .teacher-img-wrap {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid var(--white);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .teacher-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .teacher-card:hover .teacher-img {
+            transform: scale(1.1);
+        }
+
+        .teacher-name {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .teacher-role {
+            color: var(--primary-color);
+            font-style: italic;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .teacher-bio {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        /* --- ОТЗЫВЫ --- */
+        .reviews-section {
+            background-color: var(--white);
+        }
+
+        .reviews-slider-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            overflow: hidden;
+            padding: 0 40px;
+        }
+
+        .review-slide {
+            display: none;
+            padding: 40px;
+            background: var(--secondary-color);
+            border-radius: var(--border-radius);
+        }
+
+        .review-slide.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .review-text {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .review-text::before, .review-text::after {
+            content: '"';
+            font-size: 2rem;
+            color: var(--primary-color);
+            opacity: 0.5;
+            position: absolute;
+        }
+
+        .review-text::before {
+            left: -5px;
+            top: -10px;
+        }
+
+        .review-text::after {
+            right: -5px;
+            bottom: -15px;
+        }
+
+        .review-author {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .review-age {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--accent-color);
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 10;
+        }
+
+        .slider-arrow:hover {
+            color: var(--primary-color);
+        }
+
+        .prev-arrow { left: 0; }
+        .next-arrow { right: 0; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- КОНТАКТЫ --- */
+        .contacts-wrapper {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contacts-info {
+            flex: 1;
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+
+        .contact-item {
+            margin-bottom: 30px;
+        }
+
+        .contact-item h4 {
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .contact-phone-big {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .tg-btn {
+            background-color: #0088cc;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tg-btn:hover {
+            background-color: #0077b5;
+        }
+
+        .map-container {
+            flex: 1;
+            min-height: 400px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        /* --- CTA БАННЕР (НОВЫЙ) --- */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-banner p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn {
+            background-color: var(--white);
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            padding: 15px 40px;
+        }
+
+        .cta-btn:hover {
+            background-color: #f0f0f0;
+            color: var(--primary-color);
+        }
+
+        /* --- ФУТЕР --- */
+        footer {
+            background-color: #3e3431;
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin: 0 10px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            margin: 0 10px;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- МОДАЛЬНОЕ ОКНО --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .modal-overlay.open .modal {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #888;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        .modal h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235a4a42' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--primary-color);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #28a745;
+        }
+
+        .success-message i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* --- МЕДИА ЗАПРОСЫ --- */
+        @media (max-width: 992px) {
+            .teachers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header-contacts {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .nav-list {
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+
+            .hero-slider {
+                height: 350px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contacts-wrapper {
+                flex-direction: column;
+            }
+
+            .teachers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-table-container {
+                border-radius: 0;
+            }
+            
+            .schedule-table {
+                min-width: 100%;
+            }
+
+            .about-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .cta-banner {
+                padding: 60px 0;
+            }
+
+            .cta-banner h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding-top: 60px;
+            }
+            
+            .navbar {
+                padding: 10px 0;
+            }
+            
+            .nav-list {
+                gap: 10px;
+            }
+            
+            .nav-link {
+                font-size: 0.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="top-header">
+        <div class="container header-content">
+            <div class="logo">Будущая прима</div>
+            <div class="slogan">Путь в балет начинается здесь</div>
+            <div class="header-contacts">
+                <button class="btn open-modal-btn">Пробное занятие</button>
+                <div class="phone-block">
+                    <a href="tel:+78123222222" class="phone">+7 812 322 22 22</a>
+                    <span class="address-small">Санкт-Петербург, ул. Большая Пушкарская, 10</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="#about" class="nav-link">О нас</a></li>
+                <li><a href="#subscriptions" class="nav-link">Абонементы</a></li>
+                <li><a href="#schedule" class="nav-link">Расписание</a></li>
+                <li><a href="#teachers" class="nav-link">Преподаватели</a></li>
+                <li><a href="#reviews" class="nav-link">Отзывы</a></li>
+                <li><a href="#contacts" class="nav-link">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Slider -->
+    <div class="hero-slider">
+        <!-- Слайд 1 -->
+        <div class="slide active slide-banner2" style="background-image: url('https://images.unsplash.com/photo-1658281381502-8f73b17b0253?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');" alt="Балетный класс с ученицами">
+        </div>
+
+        <!-- Слайд 2 -->
+        <div class="slide slide-banner3" style="background-image: url('https://images.unsplash.com/photo-1699977635592-a670f05fa641?ixlib=rb-4.1.0&auto=format&fit=crop&w=1350&q=80');" alt="Балерина в пуантах">
+        </div>
+
+        <!-- Слайд 3 -->
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1518834107812-67b0b7c58434?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');" alt="Занятие балетом у станка">
+        </div>
+        
+        <!-- Индикаторы слайдера -->
+        <div class="slider-indicators">
+            <div class="indicator active" data-slide="0"></div>
+            <div class="indicator" data-slide="1"></div>
+            <div class="indicator" data-slide="2"></div>
+        </div>
+    </div>
+
+    <!-- About Us -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">О нас</h2>
+            <div class="about-grid">
+                <div class="about-item">
+                    <i class="fas fa-arrows-alt about-icon"></i>
+                    <h3>Просторные залы</h3>
+                    <p>Светлые залы с профессиональным балетным покрытием, огромными зеркалами и надежными станками для вашего комфорта.</p>
+                </div>
+                <div class="about-item">
+                    <i class="fas fa-map-marker-alt about-icon"></i>
+                    <h3>Удобная локация</h3>
+                    <p>Мы находимся в самом сердце Санкт-Петербурга, в 10 минутах ходьбы от метро Спортивная, с удобной парковкой.</p>
+                </div>
+                <div class="about-item">
+                    <i class="fas fa-star about-icon"></i>
+                    <h3>Профессионалы</h3>
+                    <p>Опытные преподаватели с многолетним сценическим стажем бережно поделятся секретами балетного мастерства.</p>
+                </div>
+                <div class="about-item">
+                    <i class="fas fa-layer-group about-icon"></i>
+                    <h3>Любой уровень</h3>
+                    <p>Программы подходят как для начинающих, так и для искушенных танцовщикам на групповых и индивидуальных занятиях.</p>
+                </div>
+                <!-- Дополнительные карточки -->
+                <div class="about-item">
+                    <i class="fas fa-child about-icon"></i>
+                    <h3>Детские группы (3-6, 7-12 лет)</h3>
+                    <p>Раннее эстетическое развитие, ритмика и основы классического танца в игровой форме.</p>
+                </div>
+                <div class="about-item">
+                    <i class="fas fa-user-friends about-icon"></i>
+                    <h3>Взрослые (18+)</h3>
+                    <p>Для начинающих и продолжающих. Боди-балет, классика, стретчинг. Занятия для души и тела.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscriptions -->
+    <section id="subscriptions" style="background-color: var(--white);">
+        <div class="container">
+            <h2 class="section-title">Абонементы</h2>
+            <div class="subscriptions-grid">
+                <!-- Card 1 -->
+                <div class="sub-card">
+                    <img src="https://images.unsplash.com/photo-1518834107812-67b0b7c58434?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Классический танец" class="sub-img">
+                    <div class="sub-content">
+                        <div>
+                            <h3 class="sub-title">Классический танец</h3>
+                            <p class="sub-desc">Основа хореографии. Постановка корпуса, работа у станка и на середине зала.</p>
+                            <div class="sub-price">
+                                <span class="price-amount">от 3 500 ₽</span>
+                                <span class="price-period">/ 8 занятий</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-block open-modal-btn">Записаться</button>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="sub-card">
+                    <img src="https://images.unsplash.com/photo-1555656220-46e30749d330?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YmFsbGVyaW5hJTIwc2hvZXN8ZW58MHx8MHx8fDA%3D" alt="Пуанты" class="sub-img">
+                    <div class="sub-content">
+                        <div>
+                            <h3 class="sub-title">Пуанты</h3>
+                            <p class="sub-desc">Изучение техники пальцевого танца для подготовленных учеников.</p>
+                            <div class="sub-price">
+                                <span class="price-amount">от 4 200 ₽</span>
+                                <span class="price-period">/ 8 занятий</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-block open-modal-btn">Записаться</button>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="sub-card">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Растяжка" class="sub-img">
+                    <div class="sub-content">
+                        <div>
+                            <h3 class="sub-title">Растяжка</h3>
+                            <p class="sub-desc">Комплекс упражнений на развитие гибкости и эластичности мышц.</p>
+                            <div class="sub-price">
+                                <span class="price-amount">от 2 800 ₽</span>
+                                <span class="price-period">/ 8 занятий</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-block open-modal-btn">Записаться</button>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="sub-card">
+                    <img src="https://images.unsplash.com/photo-1758529224553-25c4d24de9dd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJhbGxldCUyMHBlcmZvcm1hbmNlfGVufDB8fDB8fHww" alt="Репертуар" class="sub-img">
+                    <div class="sub-content">
+                        <div>
+                            <h3 class="sub-title">Репертуар</h3>
+                            <p class="sub-desc">Разучивание вариаций из известных балетов. Почувствуйте себя на сцене.</p>
+                            <div class="sub-price">
+                                <span class="price-amount">от 4 500 ₽</span>
+                                <span class="price-period">/ 8 занятий</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-block open-modal-btn">Записаться</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule (Новый блок) -->
+    <section id="schedule" class="schedule-section">
+        <div class="container">
+            <h2 class="section-title">Расписание занятий</h2>
+            <div class="schedule-table-container">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Время</th>
+                            <th>Понедельник</th>
+                            <th>Вторник</th>
+                            <th>Среда</th>
+                            <th>Четверг</th>
+                            <th>Пятница</th>
+                            <th>Суббота</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10:00-11:30</td>
+                            <td>Детская ритмика (3-5 лет)</td>
+                            <td>-</td>
+                            <td>Детская ритмика (3-5 лет)</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>Детский балет (6-8 лет)</td>
+                        </tr>
+                        <tr>
+                            <td>16:00-17:30</td>
+                            <td>-</td>
+                            <td>Детский балет (9-12 лет)</td>
+                            <td>-</td>
+                            <td>Детский балет (9-12 лет)</td>
+                            <td>-</td>
+                            <td>Детская растяжка (6-12 лет)</td>
+                        </tr>
+                        <tr>
+                            <td>18:00-19:30</td>
+                            <td>Классика (начинающие)</td>
+                            <td>Боди-балет</td>
+                            <td>Растяжка (взрослые)</td>
+                            <td>Классика (продолжающие)</td>
+                            <td>Боди-балет</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>19:45-21:15</td>
+                            <td>Пуанты</td>
+                            <td>Репертуар</td>
+                            <td>Классика (продолжающие)</td>
+                            <td>Пуанты</td>
+                            <td>Репертуар</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="schedule-note">* Точное расписание и наличие мест в группах уточняйте у администратора. Возможны изменения.</p>
+        </div>
+    </section>
+
+    <!-- Teachers -->
+    <section id="teachers">
+        <div class="container">
+            <h2 class="section-title">Наши педагоги</h2>
+            <div class="teachers-grid">
+                <!-- Teacher 1 -->
+                <div class="teacher-card">
+                    <div class="teacher-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Анна Павлова" class="teacher-img">
+                    </div>
+                    <h4 class="teacher-name">Анна Павлова</h4>
+                    <span class="teacher-role">Прима-балерина</span>
+                    <p class="teacher-bio">Выпускница АРБ им. Вагановой. Солистка Мариинского театра (2005-2018). Педагогический стаж 10 лет.</p>
+                </div>
+                <!-- Teacher 2 -->
+                <div class="teacher-card">
+                    <div class="teacher-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d29tYW4lMjBwb3J0cmFpdHxlbnwwfHwwfHx8MA%3D%3D" alt="Мария Иванова" class="teacher-img">
+                    </div>
+                    <h4 class="teacher-name">Мария Иванова</h4>
+                    <span class="teacher-role">Педагог классического танца</span>
+                    <p class="teacher-bio">Выпускница Московской государственной академии хореографии. Опыт преподавания 15 лет.</p>
+                </div>
+                <!-- Teacher 3 -->
+                <div class="teacher-card">
+                    <div class="teacher-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Елена Смирнова" class="teacher-img">
+                    </div>
+                    <h4 class="teacher-name">Елена Смирнова</h4>
+                    <span class="teacher-role">Инструктор по растяжке</span>
+                    <p class="teacher-bio">Специалист по физической подготовке танцовщиков. Дипломированный тренер по стретчингу и пилатесу.</p>
+                </div>
+                 <!-- Teacher 4 -->
+                 <div class="teacher-card">
+                    <div class="teacher-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Ольга Петрова" class="teacher-img">
+                    </div>
+                    <h4 class="teacher-name">Ольга Петрова</h4>
+                    <span class="teacher-role">Педагог детских групп</span>
+                    <p class="teacher-bio">Специализация - работа с детьми 3-12 лет. Авторская методика обучения через игру. Стаж 8 лет.</p>
+                </div>
+                <!-- Teacher 5 -->
+                <div class="teacher-card">
+                    <div class="teacher-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Виктория Ленская" class="teacher-img">
+                    </div>
+                    <h4 class="teacher-name">Виктория Ленская</h4>
+                    <span class="teacher-role">Хореограф-постановщик</span>
+                    <p class="teacher-bio">Постановщик спектаклей для детских и взрослых коллективов. Лауреат международных конкурсов.</p>
+                </div>
+                <!-- Teacher 6 -->
+                <div class="teacher-card">
+                    <div class="teacher-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Дарья Морозова" class="teacher-img">
+                    </div>
+                    <h4 class="teacher-name">Дарья Морозова</h4>
+                    <span class="teacher-role">Педагог боди-балета</span>
+                    <p class="teacher-bio">Создатель методики BodyBallet® для взрослых. Специалист по фитнесу и правильному питанию.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews" class="reviews-section">
+        <div class="container">
+            <h2 class="section-title">Отзывы учеников</h2>
+            <div class="reviews-slider-container">
+                <button class="slider-arrow prev-arrow"><i class="fas fa-chevron-left"></i></button>
+                
+                <div class="review-slide active">
+                    <p class="review-text">Замечательная студия! Педагоги очень внимательные, залы чистые и светлые. Никогда не думала, что смогу встать на пуанты в 30 лет, но здесь это стало реальностью.</p>
+                    <p class="review-author">Екатерина</p>
+                    <p class="review-age">32 года, занимается 1 год</p>
+                </div>
+                
+                <div class="review-slide">
+                    <p class="review-text">Хожу на растяжку и классику уже полгода. Спина перестала болеть, появилась грация. Атмосфера в студии просто волшебная, всегда хочется возвращаться.</p>
+                    <p class="review-author">Алина</p>
+                    <p class="review-age">25 лет, занимается 6 месяцев</p>
+                </div>
+
+                <div class="review-slide">
+                    <p class="review-text">Отличная локация, рядом с метро. Очень нравится индивидуальный подход преподавателей, даже в группе каждому уделяют время. Дочь (7 лет) с удовольствием ходит на занятия.</p>
+                    <p class="review-author">Оксана</p>
+                    <p class="review-age">28 лет, занимается с дочерью</p>
+                </div>
+                
+                <div class="review-slide">
+                    <p class="review-text">Пришла в студию после долгого перерыва. Опасалась, что не смогу восстановить форму, но педагоги помогли адаптировать нагрузку. Сейчас танцую в любительской постановке!</p>
+                    <p class="review-author">Мария</p>
+                    <p class="review-age">35 лет, занимается 2 года</p>
+                </div>
+
+                <button class="slider-arrow next-arrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Баннер -->
+    <section class="cta-banner">
+        <div class="container">
+            <h2>Готовы сделать первый шаг?</h2>
+            <p>Запишитесь на бесплатное пробное занятие и погрузитесь в мир балета с нашими педагогами.</p>
+            <button class="btn cta-btn open-modal-btn">
+                Записаться на пробный урок <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Contacts -->
+    <section id="contacts">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contacts-wrapper">
+                <div class="contacts-info">
+                    <div class="contact-item">
+                        <h4>Адрес:</h4>
+                        <p>Санкт-Петербург, ул. Большая Пушкарская, 10</p>
+                        <p style="font-size: 0.9rem; color: #777; margin-top: 5px;">5 минут от метро "Спортивная", вход с торца здания</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Режим работы:</h4>
+                        <p>Пн-Пт: 9:00-22:00</p>
+                        <p>Сб: 10:00-20:00</p>
+                        <p>Вс: 10:00-18:00</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Телефон:</h4>
+                        <p class="contact-phone-big">+7 812 322 22 22</p>
+                        <p style="font-size: 0.9rem; color: #777; margin-top: 5px;">Звоните для записи и консультаций</p>
+                    </div>
+                    <button class="btn tg-btn">
+                        <i class="fab fa-telegram-plane"></i> Подписаться на наш Telegram
+                    </button>
+                </div>
+                <div class="map-container">
+                    <iframe src="https://yandex.ru/map-widget/v1/?ll=30.301548%2C59.957512&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1NzQ0MzIzMxJN0KDQvtGB0YHQuNGPLCDQodCw0L3QutGCLdCf0LXRgtC10YDQsdGD0YDQsywg0JHQvtC70YzRiNCw0Y8g0J_Rg9GI0LrQsNGA0YHQutCw0Y8g0YPQu9C40YbQsCwgMTAiCg3X_btCFWqQYUI%2C&z=17.06" width="100%" height="400" frameborder="0" allowfullscreen="true" style="border:0;" title="Карта расположения студии балета 'Будущая прима'"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Будущая прима</div>
+            <div class="social-links">
+                <a href="https://vk.com/ballet_studio_spb" target="_blank"><i class="fab fa-vk"></i></a>
+                <a href="https://instagram.com/ballet_studio_spb" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com/c/ballet_studio_spb" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://t.me/ballet_studio_spb" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#privacy-policy" class="privacy-link">Политика конфиденциальности</a>
+                <a href="#terms" class="terms-link">Пользовательское соглашение</a>
+            </div>
+            <p style="margin-top: 20px; font-size: 0.8rem; color: #888;">© 2024 Студия балета "Будущая прима". Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Form -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <span class="close-modal">&times;</span>
+            <div id="formContainer">
+                <h3>Запись на пробное занятие</h3>
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Ваше ФИО" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-input" placeholder="Ваш телефон" required id="phoneInput">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder="Ваш e-mail (необязательно)">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-select" required>
+                            <option value="" disabled selected>Выберите направление</option>
+                            <option value="Классический танец">Классический танец</option>
+                            <option value="Пуанты">Пуанты (требуется подготовка)</option>
+                            <option value="Растяжка">Растяжка</option>
+                            <option value="Репертуар">Репертуар</option>
+                            <option value="Боди-балет">Боди-балет</option>
+                            <option value="Детская группа">Детская группа</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-input" placeholder="Дополнительные пожелания или комментарии" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-block" id="submitBtn">Записаться</button>
+                </form>
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i>
+                <h3>Спасибо за заявку!</h3>
+                <p>Мы получили ваше сообщение. В ближайшее время администратор свяжется с вами по указанному телефону для уточнения деталей.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // ========== ГЛАВНЫЙ СЛАЙДЕР ==========
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            let nextIndex = (currentSlide + 1) % slides.length;
+            showSlide(nextIndex);
+        }
+
+        function startSlider() {
+            slideInterval = setInterval(nextSlide, 4000); // 4 секунды
+        }
+
+        function pauseSlider() {
+            clearInterval(slideInterval);
+        }
+
+        function resumeSlider() {
+            startSlider();
+        }
+
+        // Инициализация слайдера
+        startSlider();
+
+        // Пауза при наведении
+        const heroSlider = document.querySelector('.hero-slider');
+        heroSlider.addEventListener('mouseenter', pauseSlider);
+        heroSlider.addEventListener('mouseleave', resumeSlider);
+
+        // Клик по индикаторам
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                pauseSlider();
+                showSlide(index);
+                setTimeout(resumeSlider, 10000); // Возобновить через 10 секунд
+            });
+        });
+
+        // ========== СЛАЙДЕР ОТЗЫВОВ ==========
+        const reviewSlides = document.querySelectorAll('.review-slide');
+        const prevBtn = document.querySelector('.prev-arrow');
+        const nextBtn = document.querySelector('.next-arrow');
+        let currentReview = 0;
+
+        function showReview(index) {
+            reviewSlides.forEach(slide => slide.classList.remove('active'));
+            reviewSlides[index].classList.add('active');
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentReview = (currentReview - 1 + reviewSlides.length) % reviewSlides.length;
+            showReview(currentReview);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentReview = (currentReview + 1) % reviewSlides.length;
+            showReview(currentReview);
+        });
+
+        // Автопереключение отзывов
+        setInterval(() => {
+            currentReview = (currentReview + 1) % reviewSlides.length;
+            showReview(currentReview);
+        }, 5000);
+
+        // ========== МОДАЛЬНОЕ ОКНО ==========
+        const modalOverlay = document.getElementById('modalOverlay');
+        const openModalBtns = document.querySelectorAll('.open-modal-btn');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const bookingForm = document.getElementById('bookingForm');
+        const formContainer = document.getElementById('formContainer');
+        const successMessage = document.getElementById('successMessage');
+        const phoneInput = document.getElementById('phoneInput');
+
+        // Валидация телефона
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                value = '+7 (' + value.substring(1, 4) + ') ' + value.substring(4, 7) + '-' + value.substring(7, 9) + '-' + value.substring(9, 11);
+                value = value.replace(/-+$/, '').replace(/\)\s+$/, ')');
+            }
+            
+            e.target.value = value;
+        });
+
+        // Открытие модального окна
+        openModalBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                modalOverlay.classList.add('open');
+                // Сброс состояния формы при открытии
+                formContainer.style.display = 'block';
+                successMessage.style.display = 'none';
+                bookingForm.reset();
+            });
+        });
+
+        // Закрытие модального окна
+        closeModalBtn.addEventListener('click', () => {
+            modalOverlay.classList.remove('open');
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('open');
+            }
+        });
+
+        // Отправка формы
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Валидация телефона
+            const phoneValue = phoneInput.value.replace(/\D/g, '');
+            if (phoneValue.length < 11) {
+                alert('Пожалуйста, введите корректный номер телефона');
+                phoneInput.focus();
+                return;
+            }
+            
+            // Имитация отправки данных
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Отправка...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                formContainer.style.display = 'none';
+                successMessage.style.display = 'block';
+                
+                // В реальном проекте здесь должен быть AJAX запрос на сервер
+                console.log('Данные формы:', {
+                    name: bookingForm.querySelector('input[type="text"]').value,
+                    phone: phoneInput.value,
+                    direction: bookingForm.querySelector('select').value
+                });
+                
+                // Автоматическое закрытие через 5 секунд
+                setTimeout(() => {
+                    modalOverlay.classList.remove('open');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 5000);
+            }, 1500);
+        });
+
+        // ========== ПЛАВНЫЙ СКРОЛЛ ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Закрытие мобильного меню (если бы оно было)
+                    if (window.innerWidth <= 768) {
+                        // Логика для мобильного меню
+                    }
+                }
+            });
+        });
+
+        // ========== ФИКСИРОВАННАЯ НАВИГАЦИЯ ПРИ СКРОЛЛЕ ==========
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+        
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Изменение прозрачности навигации при скролле
+            if (scrollTop > 100) {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // ========== АКТИВНЫЙ ПУНКТ МЕНЮ ПРИ СКРОЛЛЕ ==========
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        function highlightNavLink() {
+            let scrollPosition = window.pageYOffset + 100;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+        
+        // Инициализация активного пункта меню
+        window.addEventListener('scroll', highlightNavLink);
+        highlightNavLink(); // Вызов при загрузке
+
+        // ========== МИКРОРАЗМЕТКА ==========
+        // Добавляем микроразметку Schema.org для студии балета
+        const schemaScript = document.createElement('script');
+        schemaScript.type = 'application/ld+json';
+        schemaScript.textContent = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "DanceSchool",
+            "name": "Студия балета 'Будущая прима'",
+            "description": "Студия классического балета для детей и взрослых в Санкт-Петербурге. Профессиональные педагоги, просторные залы, индивидуальный подход.",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "ул. Большая Пушкарская, 10",
+                "addressLocality": "Санкт-Петербург",
+                "postalCode": "197101",
+                "addressCountry": "RU"
+            },
+            "telephone": "+7 812 322 22 22",
+            "openingHours": [
+                "Mo-Fr 09:00-22:00",
+                "Sa 10:00-20:00",
+                "Su 10:00-18:00"
+            ],
+            "url": window.location.href,
+            "priceRange": "₽₽",
+            "sameAs": [
+                "https://vk.com/ballet_studio_spb",
+                "https://instagram.com/ballet_studio_spb",
+                "https://youtube.com/c/ballet_studio_spb"
+            ]
+        });
+        document.head.appendChild(schemaScript);
+    </script>
+</body>
+</html>
